@@ -1,0 +1,25 @@
+Kubernetes doesn’t  deploy container on each node ,but as a pod  which is the is single instance of an application,. Smallest object tat u can create in k8s . K8s encapsulate a container into an object as a pod
+
+
+In Kubernetes, kubectl is the command-line tool used to interact with the Kubernetes cluster. Both kubectl run and kubectl create are commands used to create resources in a Kubernetes cluster, but they have different purposes and usage.
+* 		kubectl create:
+    * The kubectl create command is used to create resources from configuration files (usually in YAML format) that you provide. These configuration files define the desired state of the resource, including its specifications and attributes.
+    * It typically reads a YAML file with the resource definition and applies it to the cluster. For example, you can create deployments, services, pods, and other Kubernetes resources using kubectl create.
+    * It is more suitable for creating resources based on pre-defined configuration files and is often used for infrastructure as code (IaC) workflows.		Example: kubectl create -f deployment.yaml	  
+* 		kubectl run:
+    * The kubectl run command is primarily used for creating a single pod or a set of pods. It is typically used for quickly creating and running pods without the need for a separate configuration file.
+    * It is more of an imperative approach where you specify the pod's attributes directly on the command line rather than from a configuration file.
+    * It can be useful for debugging, testing, or running one-off tasks.
+* 		Example: kubectl run my-pod --image=nginx --port=80
+In summary, kubectl create is typically used for creating Kubernetes resources from configuration files, making it suitable for managing long-lived resources, while kubectl run is used for creating pods in an ad-hoc manner, often for short-lived or experimental purposes. The choice between these commands depends on your specific use case and whether you want to define your resource's specifications in a YAML file or on the command line.
+
+A Note on Editing Existing Pods
+In any of the practical quizzes, if you are asked to edit an existing POD, please note the following:
+* If you are given a pod definition file, edit that file and use it to create a new pod.
+* If you are not given a pod definition file, you may extract the definition to a file using the below command: kubectl get pod <pod-name> -o yaml > pod-definition.yaml Then edit the file to make the necessary changes, delete, and re-create the pod.
+* To modify the properties of the pod, you can utilize the kubectl edit pod <pod-name> command. Please note that only the properties listed below are editable.
+    * spec.containers[*].image
+    * spec.initContainers[*].image
+    * spec.activeDeadlineSeconds
+    * spec.tolerations
+    * spec.terminationGracePeriodSeconds
